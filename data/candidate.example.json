@@ -1,0 +1,44 @@
+{
+  "identity": {
+    "full_name": "Jane Doe",
+    "first_name": "Jane",
+    "last_name": "Doe",
+    "email": "jane.doe@example.com",
+    "phone": "+1 555 0100",
+    "city": "Sao Paulo",
+    "state": "SP",
+    "country": "Brazil"
+  },
+  "professional_facts": {
+    "title": "Senior Software Engineer",
+    "experience": "5+ years",
+    "work_model": "Remote",
+    "availability": "30 days",
+    "languages": {
+      "Portuguese": "Native",
+      "English": "Advanced"
+    },
+    "compensation": {},
+    "skills": ["Python", "TypeScript", "React", "AWS"],
+    "education": ["Degree, institution, completion year"],
+    "confirmed_experience": ["Company - Role - start to end"],
+    "unknown_never_infer": ["citizenship", "visa", "current salary", "demographic data"],
+    "reject_if_required": ["unknown mandatory information", "CAPTCHA", "MFA"]
+  },
+  "resume": {
+    "title": "Senior Software Engineer",
+    "location": "Sao Paulo, SP, Brazil",
+    "summary": "Senior software engineer experienced in building reliable web and cloud products.",
+    "cover_letter_summary": "My background combines product delivery, backend and frontend ownership, cloud architecture, and API design.",
+    "skills": ["Python", "TypeScript", "React", "AWS", "PostgreSQL", "Docker"],
+    "experience": [
+      {
+        "company": "Example Company",
+        "title": "Senior Software Engineer",
+        "period": "Jan 2022 - Present",
+        "highlights": ["Describe a verified, relevant achievement."]
+      }
+    ],
+    "education": ["Bachelor's degree - Example University, 2021"]
+  }
+}

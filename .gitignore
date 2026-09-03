@@ -1,0 +1,60 @@
+# Environment and local configuration
+.env
+.env.*
+!.env.example
+data/*
+!data/candidate.example.json
+SKILL.md
+SKILL.local.md
+
+# Python
+.venv/
+venv/
+env/
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+build/
+dist/
+*.egg-info/
+
+# Runtime output
+logs/
+tmp/
+*.log
+*.pid
+*.sqlite
+*.sqlite3
+*.db
+*.db-shm
+*.db-wal
+*.zip
+
+# Browser and local service state
+chrome-profile/
+redis-data/
+site-videos/
+
+# Compiled launcher artifacts
+AutoApply.exe
+launcher/*.exe
+launcher/*.pdb
+
+# Superseded local prototypes
+backend/app.py
+frontend/assets/app.js
+frontend/assets/styles.css
+
+# Editors and operating systems
+.idea/
+.vscode/
+*.suo
+*.user
+.DS_Store
+Thumbs.db
+Desktop.ini

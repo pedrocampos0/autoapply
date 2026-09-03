@@ -1,0 +1,47 @@
+.danger-button { color: var(--danger); }
+#credentialDialog { width: min(520px, calc(100vw - 30px)); padding: 0; }
+#credentialForm { padding: 23px; }
+.credential-help { color: var(--muted); font-size: 12px; line-height: 1.5; margin: -7px 0 14px; }
+#credentialForm label small { color: var(--muted); font-weight: 400; }
+.split-actions { display: grid; grid-template-columns: auto 1fr auto auto; }
+.row-actions { display: flex; align-items: center; gap: 5px; white-space: nowrap; }
+.action.ai { color: #bca7ff; border-color: #554775; }
+.action.complete { color: var(--accent); }
+.action.record { color: var(--blue); }
+#view-jobs header { align-items: flex-start; }
+#view-jobs .header-actions { flex-wrap: wrap; justify-content: flex-end; }
+#view-jobs table { min-width: 1320px; }
+
+.recording-bar {
+  position: fixed; z-index: 20; left: 250px; right: 24px; bottom: 22px;
+  display: flex; align-items: center; gap: 12px; padding: 13px 16px;
+  border: 1px solid #6b3440; border-radius: 12px; background: #25151a;
+  box-shadow: 0 12px 40px #000a;
+}
+.recording-bar div { flex: 1; }
+.recording-bar strong, .recording-bar small { display: block; }
+.recording-bar small { margin-top: 3px; color: var(--muted); }
+.recording-dot {
+  width: 12px; height: 12px; border-radius: 50%; background: var(--danger);
+  box-shadow: 0 0 0 6px #ff718424; animation: recording-pulse 1.2s infinite;
+}
+@keyframes recording-pulse { 50% { opacity: .45; } }
+
+.video-groups { display: grid; gap: 18px; }
+.video-group { background: var(--panel); border: 1px solid var(--line); border-radius: 13px; padding: 18px; }
+.video-group h2 { font-size: 15px; margin-bottom: 14px; }
+.video-group h2 span {
+  display: inline-grid; place-items: center; min-width: 23px; height: 20px; margin-left: 5px;
+  border-radius: 99px; background: #26332e; color: var(--accent); font-size: 10px;
+}
+.video-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 12px; }
+.video-card { display: flex; flex-direction: column; gap: 7px; padding: 10px; background: #0c1118; border: 1px solid var(--line); border-radius: 10px; }
+.video-card video { width: 100%; aspect-ratio: 16/9; background: #000; border-radius: 7px; }
+.video-card strong { font-size: 12px; }
+.video-card p, .video-card small { margin: 0; color: var(--muted); font-size: 11px; }
+.video-card .action { align-self: flex-end; margin-top: 3px; }
+
+@media (max-width: 950px) {
+  .recording-bar { left: 88px; }
+  #view-jobs .header-actions { justify-content: flex-start; }
+}

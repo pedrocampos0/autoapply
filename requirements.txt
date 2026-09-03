@@ -1,0 +1,9 @@
+fastapi==0.116.1
+uvicorn[standard]==0.35.0
+pydantic==2.11.7
+playwright>=1.55,<2
+llama-index-core>=0.12,<1
+llama-index-llms-ollama>=0.6,<1
+reportlab>=4.2,<5
+pypdf>=5,<7
+pywin32>=306; sys_platform == "win32"

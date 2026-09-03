@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AutoApply</title>
+  <link rel="stylesheet" href="/assets/styles-v2.css" />
+  <link rel="stylesheet" href="/assets/llama.css" />
+  <link rel="stylesheet" href="/assets/workflow.css" />
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="brand"><span class="brand-mark">A</span><div><strong>AutoApply</strong><small>CAREER OS</small></div></div>
+    <nav>
+      <button class="nav active" data-tab="sites"><span>⌂</span> Sites</button>
+      <button class="nav" data-tab="jobs"><span>▦</span> Vagas</button>
+      <button class="nav" data-tab="autoapply"><span>▶</span> AutoApply</button>
+      <button class="nav" data-tab="discovery"><span>⌕</span> Buscar vagas</button>
+      <button class="nav" data-tab="videos"><span>●</span> Vídeos por site</button>
+      <button class="nav" data-tab="linkedin"><span>in</span> LinkedIn</button>
+      <button class="nav" data-tab="llama"><span>λ</span> Llama</button>
+    </nav>
+    <div class="side-status"><span class="pulse"></span><div><strong>Aplicativo local</strong><small id="serviceText">verificando serviços...</small></div></div>
+  </aside>
+
+  <main>
+    <section class="view active" id="view-sites">
+      <header><div><p class="eyebrow">SEU ESPAÇO DE BUSCA</p><h1>Sites de vagas remotas</h1><p class="subtitle">Cadastre as fontes de busca e configure o login de cada site com armazenamento protegido pelo Windows.</p></div><button class="primary" id="newButton">+ Adicionar site</button></header>
+      <section class="metrics"><article><span>Sites cadastrados</span><strong id="totalMetric">—</strong></article><article><span>Ativos</span><strong id="activeMetric">—</strong></article><article><span>Logins configurados</span><strong id="credentialsMetric">—</strong></article></section>
+      <section class="toolbar"><input id="search" placeholder="Buscar por site ou URL..." /><select id="methodFilter"><option value="">Todos os logins</option><option value="google">Gmail</option><option value="linkedin">LinkedIn</option><option value="username_password">Outro</option></select></section>
+      <section class="table-card"><table><thead><tr><th>Site</th><th>URL</th><th>Método de login</th><th>Status</th><th></th></tr></thead><tbody id="siteRows"></tbody></table><div class="empty hidden" id="siteEmpty">Nenhum site encontrado.</div></section>
+    </section>
+
+    <section class="view" id="view-jobs">
+      <header><div><p class="eyebrow">HISTÓRICO PERSISTENTE</p><h1>Vagas</h1><p class="subtitle">Selecione vagas para aplicar com IA, concluir ou excluir em lote.</p></div><div class="header-actions"><button class="primary" id="applySelectedJobs">Aplicar IA</button><button class="secondary" id="completeSelectedJobs">Marcar concluídas</button><button class="secondary danger-button" id="deleteSelectedJobs">Excluir selecionadas</button><button class="secondary" id="refreshJobs">Atualizar</button></div></header>
+      <section class="metrics"><article><span>Total</span><strong id="jobsTotal">—</strong></article><article><span>Aplicações feitas</span><strong id="jobsApplied">—</strong></article><article><span>Pendentes</span><strong id="jobsPending">—</strong></article></section>
+      <section class="toolbar"><input id="jobSearch" placeholder="Buscar empresa, cargo ou fonte..." /><select id="jobStatus"><option value="">Todos os status</option><option value="applied">Aplicação feita</option><option value="pending">Aplicação pendente</option><option value="running">Em execução</option></select></section>
+      <section class="run-panel hidden" id="jobsRunPanel"><div><strong id="jobsRunMessage">Preparando...</strong><span id="jobsRunNumbers"></span></div><div class="progress"><i id="jobsRunProgress"></i></div></section>
+      <section class="table-card wide"><table><thead><tr><th class="check"><input type="checkbox" id="selectAllJobs" aria-label="Selecionar todas as vagas" /></th><th>Match</th><th>Company</th><th>Role</th><th>Source</th><th>Link</th><th>Status report</th><th>Candidatura</th><th>Ações</th></tr></thead><tbody id="jobRows"></tbody></table><div class="empty hidden" id="jobEmpty">Nenhuma vaga cadastrada.</div></section>
+    </section>
+
+    <section class="view" id="view-autoapply">
+      <header><div><p class="eyebrow">GMAIL · CONTA CONFIGURADA LOCALMENTE</p><h1>AutoApply</h1><p class="subtitle">Leia o HTML do AutoApply Report e cadastre as vagas, sem executar IA ou enviar candidaturas.</p></div><div class="header-actions"><button class="secondary" id="refreshEmails">Atualizar e-mails</button><button class="primary run" id="runApply">Cadastrar vagas</button></div></header>
+      <div class="connection-card"><span class="connection-dot" id="gmailDot"></span><div><strong id="gmailTitle">Conexão Gmail</strong><p id="gmailStatus">Clique em atualizar para ler a sessão autenticada do Chrome.</p></div></div>
+      <section class="run-panel hidden" id="runPanel"><div><strong id="runMessage">Preparando...</strong><span id="runNumbers"></span></div><div class="progress"><i id="runProgress"></i></div></section>
+      <section class="table-card"><table><thead><tr><th class="check"></th><th>Data</th><th>Remetente</th><th>Assunto</th><th>Resumo</th><th>Ações</th></tr></thead><tbody id="emailRows"></tbody></table><div class="empty" id="emailEmpty">Atualize para carregar os AutoApply Reports.</div></section>
+      <p class="safety-note">Este botão apenas lê a tabela HTML do e-mail e salva vagas novas. As candidaturas são iniciadas exclusivamente na aba Vagas.</p>
+    </section>
+
+    <section class="view" id="view-discovery">
+      <header><div><p class="eyebrow">LLAMAINDEX · BUSCAR_VAGAS.MD</p><h1>Buscar vagas</h1><p class="subtitle">Busca novas oportunidades pelas regras do arquivo e ignora vagas já cadastradas.</p></div><div class="header-actions"><button class="primary" id="registerSelectedDiscoveries">Cadastrar selecionadas</button><button class="secondary" id="refreshDiscoveries">Atualizar vagas</button></div></header>
+      <div class="connection-card"><span class="connection-dot" id="discoveryDot"></span><div><strong id="discoveryTitle">Busca local preparada</strong><p id="discoveryStatus">Aguardando BUSCAR_VAGAS.md.</p></div></div>
+      <section class="table-card"><table><thead><tr><th class="check"><input type="checkbox" id="selectAllDiscoveries" aria-label="Selecionar todas" /></th><th>Data</th><th>Remetente</th><th>Assunto</th><th>Resumo</th><th>Ações</th></tr></thead><tbody id="discoveryRows"></tbody></table><div class="empty" id="discoveryEmpty">Clique em Atualizar vagas para iniciar a busca.</div></section>
+    </section>
+
+    <section class="view" id="view-videos">
+      <header><div><p class="eyebrow">APRENDIZADO POR DEMONSTRAÇÃO</p><h1>Vídeos por site</h1><p class="subtitle">Gravações manuais organizadas pelo domínio da vaga para uso futuro pela IA.</p></div><button class="secondary" id="refreshVideos">Atualizar</button></header>
+      <section id="videoGroups" class="video-groups"></section>
+      <div class="empty" id="videosEmpty">Nenhuma gravação cadastrada.</div>
+    </section>
+
+    <section class="view" id="view-linkedin">
+      <header><div><p class="eyebrow">LINKEDIN PROFILE OPTIMIZER</p><h1>LinkedIn</h1><p class="subtitle">Avaliação bilíngue para melhorar SEO, palavras-chave e descoberta por tech recruiters.</p></div><button class="primary linkedin-button" id="evaluateLinkedin">in&nbsp;&nbsp;Avaliar com IA</button></header>
+      <div class="connection-card"><span class="connection-dot" id="linkedinDot"></span><div><strong id="linkedinName">Conexão LinkedIn</strong><p id="linkedinStatus">A sessão será lida do perfil Chrome do AutoApply.</p></div><button class="secondary small" id="checkLinkedin">Verificar conexão</button></div>
+      <section id="linkedinEmpty" class="linkedin-empty"><div class="linkedin-icon">in</div><h2>Otimize seu perfil para recrutadores</h2><p>A IA analisará headline, About, experiências, skills, keywords e posicionamento em português e inglês.</p></section>
+      <section id="linkedinResult" class="hidden">
+        <div class="score-card"><div class="score" id="linkedinScore">0</div><div><span>Score do perfil</span><p id="linkedinSummaryPt"></p><p class="english" id="linkedinSummaryEn"></p></div></div>
+        <div class="copy-grid"><article><p class="eyebrow">HEADLINE · PT</p><p id="headlinePt"></p><button class="copy" data-copy="headlinePt">Copiar</button></article><article><p class="eyebrow">HEADLINE · EN</p><p id="headlineEn"></p><button class="copy" data-copy="headlineEn">Copiar</button></article><article><p class="eyebrow">SOBRE · PT</p><p id="aboutPt"></p><button class="copy" data-copy="aboutPt">Copiar</button></article><article><p class="eyebrow">ABOUT · EN</p><p id="aboutEn"></p><button class="copy" data-copy="aboutEn">Copiar</button></article></div>
+        <h2 class="section-title">Modificações recomendadas</h2><div id="recommendations" class="recommendations"></div>
+        <div class="keyword-card"><div><h3>Keywords ausentes</h3><div id="missingKeywords" class="chips"></div></div><div><h3>Buscas de recruiters</h3><div id="recruiterSearches" class="chips"></div></div></div>
+      </section>
+    </section>
+
+    <section class="view" id="view-llama">
+      <header><div><p class="eyebrow">IA LOCAL · OLLAMA</p><h1>Llama</h1><p class="subtitle">Converse com o modelo local e acompanhe o uso dos recursos desta máquina.</p></div><button class="secondary" id="refreshLlama">Atualizar métricas</button></header>
+      <section class="llama-metrics">
+        <article><span>CPU</span><strong id="llamaCpu">—</strong><small id="llamaCpuDetail">carregando...</small><i><b id="llamaCpuBar"></b></i></article>
+        <article><span>Memória RAM</span><strong id="llamaRam">—</strong><small id="llamaRamDetail">carregando...</small><i><b id="llamaRamBar"></b></i></article>
+        <article><span>GPU</span><strong id="llamaGpu">—</strong><small id="llamaGpuDetail">carregando...</small><i><b id="llamaGpuBar"></b></i></article>
+        <article><span>Disco do projeto</span><strong id="llamaDisk">—</strong><small id="llamaDiskDetail">carregando...</small><i><b id="llamaDiskBar"></b></i></article>
+      </section>
+      <section class="llama-layout">
+        <aside class="llama-config-card">
+          <p class="eyebrow">CONFIGURAÇÃO</p><h2>Modelo local</h2>
+          <div class="llama-model"><span class="connection-dot" id="llamaDot"></span><div><strong id="llamaModel">Llama 2</strong><small id="llamaProcessor">Verificando Ollama...</small></div></div>
+          <label>Janela de contexto<select id="llamaContext"><option value="512">512 tokens</option><option value="1024">1K tokens</option><option value="2048">2K tokens</option><option value="4096">4K tokens</option></select></label>
+          <button class="primary" id="saveLlamaConfig">Salvar configuração</button>
+          <p class="config-help">Contextos maiores mantêm mais conversa, mas consomem mais RAM e VRAM. A configuração fica salva na pasta de dados do projeto.</p>
+          <div class="last-generation hidden" id="lastGeneration"><span>Última resposta</span><strong id="generationSpeed">—</strong><small id="generationTokens">—</small></div>
+        </aside>
+        <section class="llama-chat-card">
+          <div class="llama-chat-head"><div><strong>Chat local</strong><small>Nenhuma mensagem é enviada à OpenAI.</small></div><button class="action" id="clearLlamaChat">Limpar</button></div>
+          <div class="llama-messages" id="llamaMessages"><div class="llama-welcome"><span>λ</span><h2>Como posso ajudar?</h2><p>Esta conversa roda localmente usando o Llama 2.</p></div></div>
+          <form class="llama-composer" id="llamaChatForm"><textarea id="llamaPrompt" rows="1" maxlength="8000" placeholder="Envie uma mensagem para o Llama 2..." required></textarea><button class="primary" id="sendLlama" type="submit">Enviar</button></form>
+        </section>
+      </section>
+    </section>
+  </main>
+
+  <dialog id="siteDialog"><form id="siteForm"><div class="dialog-head"><div><p class="eyebrow">CONFIGURAÇÃO</p><h2 id="dialogTitle">Adicionar site</h2></div><button type="button" class="icon" id="closeDialog">×</button></div><label>Nome do site<input required maxlength="120" id="title" /></label><label>Website URL<input required type="url" id="websiteUrl" placeholder="https://..." /></label><label>Método de login<select id="loginMethod"><option value="google">Gmail</option><option value="linkedin">LinkedIn</option><option value="username_password">Outro</option></select></label><label class="switch"><input type="checkbox" id="enabled" checked /><span>Site ativo e usado como fonte de busca</span></label><div class="dialog-actions"><button type="button" class="secondary" id="cancelDialog">Cancelar</button><button class="primary" type="submit">Salvar site</button></div><p class="form-error" id="formError"></p></form></dialog>
+  <dialog id="credentialDialog"><form id="credentialForm"><div class="dialog-head"><div><p class="eyebrow">LOGIN PROTEGIDO</p><h2 id="credentialTitle">Configurar credenciais</h2></div><button type="button" class="icon" id="closeCredentialDialog">×</button></div><p class="credential-help" id="credentialHelp"></p><label id="credentialIdentifierLabel">Email ou username<input required maxlength="320" autocomplete="username" id="credentialIdentifier" /></label><label>Senha<input type="password" maxlength="1000" autocomplete="new-password" id="credentialPassword" /><small id="credentialPasswordHelp">Obrigatória no primeiro cadastro.</small></label><div class="dialog-actions split-actions"><button type="button" class="secondary danger-button" id="deleteCredential">Remover credenciais</button><span></span><button type="button" class="secondary" id="cancelCredentialDialog">Cancelar</button><button class="primary" type="submit">Salvar credenciais</button></div><p class="form-error" id="credentialError"></p></form></dialog>
+  <aside class="recording-bar hidden" id="recordingBar"><span class="recording-dot"></span><div><strong id="recordingTitle">Gravando aplicação manual</strong><small>Conclua a candidatura e volte aqui para salvar o vídeo.</small></div><button class="primary" id="stopRecording">Parar e salvar</button></aside>
+  <div id="toast"></div>
+  <script src="/assets/app-v2.js"></script>
+</body>
+</html>
